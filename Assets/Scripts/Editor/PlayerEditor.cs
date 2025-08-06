@@ -19,7 +19,7 @@ public class PlayerEditor : Editor
         
         if (GUILayout.Button("Add Item to Inventory"))
         {
-            player.AddItemToInventoryInventory();
+            player.EditorAddItemToInventory();
         }
 
         if (GUILayout.Button("Add equipament"))

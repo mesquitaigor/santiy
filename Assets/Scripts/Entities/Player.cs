@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Item itemToAdd;
     private void Awake()
     {
-        Inventory.OnEquipmentChanged += HandleEquipmentChanged;
+        //Inventory.OnEquipmentChanged += HandleEquipmentChanged;
     }
     private void HandleEquipmentChanged(EquipmentChangeEventArgs eventArg)
     {
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
             parentConstraint.SetSource(0, source);
         }
     }
-    public void AddItemToInventoryInventory()
+    public void EditorAddItemToInventory()
     {
         if (itemToAdd != null)
         {
@@ -34,6 +34,14 @@ public class Player : MonoBehaviour
         else
         {
             Debug.LogError("Nenhum item foi atribuído!");
+        }
+    }
+    public void AddItemToInventory(Item item)
+    {
+        if (item != null)
+        {
+            inventory.AddItem(item);
+            NotificationsController.TriggerNotification($"{item.itemName} adicionado.");
         }
     }
     public void EquipItemDebug()

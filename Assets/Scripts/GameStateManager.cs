@@ -12,6 +12,9 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private bool isAnyMenuOpen = false;
     [SerializeField] private Player player;
     
+    [Header("Configurações do Cursor")]
+    [SerializeField] private bool lockCursorInGameplay = true;
+    
     // Propriedade pública para acessar o player
     public Player Player => player;
     
@@ -53,6 +56,9 @@ public class GameStateManager : MonoBehaviour
     {
         // Habilita o action map do player por padrão
         SetPlayerActionMapActive(true);
+        
+        // Configura o cursor inicial
+        SetCursorState(false);
     }
     
     /// <summary>
@@ -88,6 +94,29 @@ public class GameStateManager : MonoBehaviour
     }
     
     /// <summary>
+    /// Configura o estado do cursor baseado se menus estão abertos
+    /// </summary>
+    /// <param name="menuOpen">True se algum menu está aberto</param>
+    private void SetCursorState(bool menuOpen)
+    {
+        if (lockCursorInGameplay)
+        {
+            if (menuOpen)
+            {
+                // Menu aberto: libera e mostra o cursor
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                // Gameplay: trava e esconde o cursor
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
+    }
+    
+    /// <summary>
     /// Alterna entre os action maps baseado no estado do menu
     /// </summary>
     /// <param name="menuOpen">True se algum menu está aberto</param>
@@ -103,6 +132,9 @@ public class GameStateManager : MonoBehaviour
             SetPlayerActionMapActive(true);
             SetGameplayMenuActionMapActive(false);
         }
+        
+        // Atualiza o estado do cursor
+        SetCursorState(menuOpen);
     }
     
     /// <summary>

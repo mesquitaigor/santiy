@@ -37,8 +37,6 @@ public class InventoryChangeEventArgs
 public class Inventory
 {
     private EquipmentsInventory equipments;
-
-    // Event that fires when inventory changes
     public static event Action<InventoryChangeEventArgs> OnInventoryChanged;
     public static event Action<EquipmentChangeEventArgs> OnEquipmentChanged;
     public int MaxSize { get; private set; }

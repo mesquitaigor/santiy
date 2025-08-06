@@ -29,6 +29,20 @@ public class EquipmentsSlotsController : InventoryTabPanel
 
     [Header("Configuração dos Slots de Armadura")]
     [SerializeField] private List<ArmorSlotConfig> armorSlots = new List<ArmorSlotConfig>();
+    private void OnEnable()
+    {
+        Inventory.OnEquipmentChanged += OnEquipmentChanged;
+    }
+
+    private void OnDisable()
+    {
+        Inventory.OnEquipmentChanged -= OnEquipmentChanged;
+    }
+
+    private void OnEquipmentChanged(EquipmentChangeEventArgs eventArgs)
+    {
+        RefreshInventoryDisplay();
+    }
 
     public override void RefreshInventoryDisplay()
     {
@@ -98,20 +112,5 @@ public class EquipmentsSlotsController : InventoryTabPanel
             SlotSide.Buttom => bottomPanel,
             _ => topPanel
         };
-    }
-
-    private void OnEnable()
-    {
-        Inventory.OnEquipmentChanged += OnEquipmentChanged;
-    }
-
-    private void OnDisable()
-    {
-        Inventory.OnEquipmentChanged -= OnEquipmentChanged;
-    }
-
-    private void OnEquipmentChanged(EquipmentChangeEventArgs eventArgs)
-    {
-        RefreshInventoryDisplay();
     }
 }
